@@ -8,10 +8,16 @@
 
     const hoverMessages = [
         "Why?",
+        "keno.....",
+        "Emon kore na 😙",
         "No...",
         "Plssss",
         "Come on!",
-        "Think again",
+        "Think again 😉",
+        "Don't you want to? 🥺",
+        "NE NE NE NE NE",
+        "Beddop",
+        "Pocha 🙂‍↔️",
         "Really?",
         "Are you sure?",
         "Don't be shy 💕",
