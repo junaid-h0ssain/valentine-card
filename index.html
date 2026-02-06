@@ -13,131 +13,18 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #ffe6e9; /* Light pink background */
+            background-color: #f54357;
+            /* Light pink background */
             font-family: "Arial", sans-serif;
-            overflow: hidden; /* Prevents scrollbars when button moves */
-        }
-
-        .container {
-            text-align: center;
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            max-width: 90%;
-            position: relative;
-        }
-
-        h1 {
-            color: #ff4d6d;
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-        }
-
-        .buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            position: relative; /* Needed for button positioning context if you want it contained */
-        }
-
-        button {
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        #yesBtn {
-            background-color: #ff4d6d;
-            color: white;
-            font-weight: bold;
-        }
-
-        #yesBtn:hover {
-            background-color: #d63352;
-            transform: scale(1.1);
-        }
-
-        #noBtn {
-            background-color: #f0f0f0;
-            color: #333;
-            position: relative;
-        }
-
-        /* Image for the celebration state */
-        .gif-container img {
-            max-width: 100%;
-            border-radius: 10px;
+            overflow: hidden;
+            /* Prevents scrollbars when button moves */
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <div id="question-section">
-            <h1>Will you be my Valentine? 💖</h1>
-            <div class="buttons">
-                <button id="yesBtn">Yes!</button>
-                <button id="noBtn">No</button>
-            </div>
-        </div>
-
-        <div id="success-section" class="gif-container" style="display: none;">
-            <h1>Yay! I knew it! 🥰</h1>
-            <img
-                src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExb2xrMGQzdno1c2tvZ3NxZmw5ZjNncHlwMjY3emE3ZnBrMHJudW1xMiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IqojY0rgVWfOE/giphy.gif"
-                alt="Cute bear hug"
-            />
-        </div>
-    </div>
-
-    <script>
-        const yesBtn = document.getElementById("yesBtn");
-        const noBtn = document.getElementById("noBtn");
-        const questionSection = document.getElementById("question-section");
-        const successSection = document.getElementById("success-section");
-
-        let isNoBtnMoved = false;
-
-        // Logic for the "No" button running away
-        noBtn.addEventListener("mouseover", moveButton);
-        noBtn.addEventListener("click", moveButton); // For mobile/touch screens
-
-        function moveButton() {
-            // Get the window dimensions
-            const windowWidth = window.innerWidth;
-            const windowHeight = window.innerHeight;
-
-            // Get the button dimensions
-            const btnWidth = noBtn.offsetWidth;
-            const btnHeight = noBtn.offsetHeight;
-
-            // Calculate random positions
-            // We subtract the button size to ensure it stays fully on screen
-            const randomX = Math.random() * (windowWidth - btnWidth - 50);
-            const randomY = Math.random() * (windowHeight - btnHeight - 50);
-
-            // Apply the new position
-            noBtn.style.position = "fixed"; // Change to fixed to move anywhere on screen
-            noBtn.style.left = randomX + "px";
-            noBtn.style.top = randomY + "px";
-            isNoBtnMoved = true;
-        }
-
-        // Logic for the "Yes" button
-        yesBtn.addEventListener("click", () => {
-            questionSection.style.display = "none";
-            successSection.style.display = "block";
-
-            // Remove the floating No button if it's still visible
-            if (isNoBtnMoved) {
-                noBtn.style.display = "none";
-            }
-        });
-    </script>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
 </body>
 
 </html>
