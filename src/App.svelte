@@ -1,9 +1,10 @@
 <script>
     // In Svelte 5, we use $state() for variables that update the screen
     let showSuccess = $state(false);
-    let noBtnPosition = $state({ left: "50%", top: "50%" });
+    let noBtnPosition = $state({ left: "auto", top: "auto" });
     let isNoBtnMoved = $state(false);
     let currentMessage = $state("Will you be my Valentine? 💖");
+    let container;
 
     const hoverMessages = [
         "Why?",
@@ -24,21 +25,26 @@
             hoverMessages[Math.floor(Math.random() * hoverMessages.length)];
         currentMessage = randomMsg;
 
-        // 2. Move Button
-        const maxWidth = window.innerWidth - 150; // Ensure it fits on screen
-        const maxHeight = window.innerHeight - 60;
+        // 2. Move Button within container
+        if (container) {
+            const rect = container.getBoundingClientRect();
+            const containerWidth = rect.width;
+            const containerHeight = rect.height;
 
-        // Math.max ensures we don't get negative numbers on small phones
-        const randomX = Math.random() * Math.max(0, maxWidth);
-        const randomY = Math.random() * Math.max(0, maxHeight);
+            const btnWidth = 100; // Approximate button width
+            const btnHeight = 50; // Approximate button height
 
-        noBtnPosition = { left: `${randomX}px`, top: `${randomY}px` };
-        isNoBtnMoved = true;
+            const randomX = Math.random() * (containerWidth - btnWidth);
+            const randomY = Math.random() * (containerHeight - btnHeight);
+
+            noBtnPosition = { left: `${randomX}px`, top: `${randomY}px` };
+            isNoBtnMoved = true;
+        }
     }
 </script>
 
 <main>
-    <div class="container">
+    <div class="container" bind:this={container}>
         {#if !showSuccess}
             <div id="question-section">
                 <h1>{currentMessage}</h1>
@@ -51,7 +57,7 @@
                         id="noBtn"
                         onmouseenter={moveButton}
                         onclick={moveButton}
-                        style:position={isNoBtnMoved ? "fixed" : "relative"}
+                        style:position={isNoBtnMoved ? "absolute" : "relative"}
                         style:left={noBtnPosition.left}
                         style:top={noBtnPosition.top}
                     >
