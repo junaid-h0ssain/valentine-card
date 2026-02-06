@@ -31,17 +31,26 @@
             hoverMessages[Math.floor(Math.random() * hoverMessages.length)];
         currentMessage = randomMsg;
 
-        // 2. Move Button within container
+        // 2. Move Button within viewport (especially important for mobile)
         if (container) {
             const rect = container.getBoundingClientRect();
-            const containerWidth = rect.width;
-            const containerHeight = rect.height;
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
 
             const btnWidth = 100; // Approximate button width
             const btnHeight = 50; // Approximate button height
 
-            const randomX = Math.random() * (containerWidth - btnWidth);
-            const randomY = Math.random() * (containerHeight - btnHeight);
+            // Ensure button stays within viewport bounds
+            const maxX = viewportWidth - btnWidth - 20; // 20px margin
+            const maxY = viewportHeight - btnHeight - 20; // 20px margin
+
+            // Get container position relative to viewport
+            const containerLeft = rect.left;
+            const containerTop = rect.top;
+
+            // Calculate random position within viewport, preferring container area
+            const randomX = Math.max(20, Math.min(maxX, containerLeft + Math.random() * Math.min(rect.width - btnWidth, maxX - containerLeft)));
+            const randomY = Math.max(20, Math.min(maxY, containerTop + Math.random() * Math.min(rect.height - btnHeight, maxY - containerTop)));
 
             noBtnPosition = { left: `${randomX}px`, top: `${randomY}px` };
             isNoBtnMoved = true;
@@ -63,9 +72,10 @@
                         id="noBtn"
                         onmouseenter={moveButton}
                         onclick={moveButton}
-                        style:position={isNoBtnMoved ? "absolute" : "relative"}
+                        style:position={isNoBtnMoved ? "fixed" : "relative"}
                         style:left={noBtnPosition.left}
                         style:top={noBtnPosition.top}
+                        style:z-index={isNoBtnMoved ? "1000" : "auto"}
                     >
                         No
                     </button>
@@ -127,7 +137,7 @@
 
     #yesBtn:hover {
         background-color: #d63352;
-        transform: scale(1.1);
+        transform: scale(1.5);
     }
 
     #noBtn {
@@ -140,6 +150,28 @@
     .gif-container img {
         max-width: 100%;
         border-radius: 10px;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+        .container {
+            padding: 20px;
+            max-width: 95%;
+        }
+
+        h1 {
+            font-size: 2rem;
+        }
+
+        .buttons {
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 1rem;
+        }
     }
 </style>
 
