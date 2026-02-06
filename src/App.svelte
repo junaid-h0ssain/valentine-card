@@ -1,60 +1,58 @@
 <script>
-  const yesBtn = document.getElementById("yesBtn");
-  const noBtn = document.getElementById("noBtn");
-  const questionSection = document.getElementById("question-section");
-  const successSection = document.getElementById("success-section");
+  import { onMount } from 'svelte';
 
-  // Logic for the "No" button running away
-  noBtn.addEventListener("mouseover", moveButton);
-  noBtn.addEventListener("click", moveButton); // For mobile/touch screens
+  let showSuccess = false;
+  let noBtnPosition = { left: 'auto', top: 'auto' };
+  let isNoBtnMoved = false;
+
+  onMount(() => {
+    // Initial position can be set here if needed
+  });
 
   function moveButton() {
-    // Get the window dimensions
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
+    const btnWidth = 100; // Approximate button width
+    const btnHeight = 50; // Approximate button height
 
-    // Get the button dimensions
-    const btnWidth = noBtn.offsetWidth;
-    const btnHeight = noBtn.offsetHeight;
-
-    // Calculate random positions
-    // We subtract the button size to ensure it stays fully on screen
     const randomX = Math.random() * (windowWidth - btnWidth - 50);
     const randomY = Math.random() * (windowHeight - btnHeight - 50);
 
-    // Apply the new position
-    noBtn.style.position = "fixed"; // Change to fixed to move anywhere on screen
-    noBtn.style.left = randomX + "px";
-    noBtn.style.top = randomY + "px";
+    noBtnPosition = { left: randomX + 'px', top: randomY + 'px' };
+    isNoBtnMoved = true;
   }
 
-  // Logic for the "Yes" button
-  yesBtn.addEventListener("click", () => {
-    questionSection.style.display = "none";
-    successSection.style.display = "block";
-
-    // Remove the floating No button if it's still visible
-    noBtn.style.display = "none";
-  });
+  function handleYes() {
+    showSuccess = true;
+  }
 </script>
 
 <main>
   <div class="container">
-    <div id="question-section">
-      <h1>Will you be my Valentine? 💖</h1>
-      <div class="buttons">
-        <button id="yesBtn">Yes!</button>
-        <button id="noBtn">No</button>
+    {#if !showSuccess}
+      <div id="question-section">
+        <h1>Will you be my Valentine? 💖</h1>
+        <div class="buttons">
+          <button id="yesBtn" on:click={handleYes}>Yes!</button>
+          <button
+            id="noBtn"
+            on:mouseover={moveButton}
+            on:click={moveButton}
+            style={isNoBtnMoved ? `position: fixed; left: ${noBtnPosition.left}; top: ${noBtnPosition.top};` : ''}
+          >
+            No
+          </button>
+        </div>
       </div>
-    </div>
-
-    <div id="success-section" class="gif-container">
-      <h1>Yay! I knew it! 🥰</h1>
-      <img
-        src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExb2xrMGQzdno1c2tvZ3NxZmw5ZjNncHlwMjY3emE3ZnBrMHJudW1xMiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IqojY0rgVWfOE/giphy.gif"
-        alt="Cute bear hug"
-      />
-    </div>
+    {:else}
+      <div id="success-section" class="gif-container">
+        <h1>Yay! I knew it! 🥰</h1>
+        <img
+          src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExb2xrMGQzdno1c2tvZ3NxZmw5ZjNncHlwMjY3emE3ZnBrMHJudW1xMiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IqojY0rgVWfOE/giphy.gif"
+          alt="Cute bear hug"
+        />
+      </div>
+    {/if}
   </div>
 </main>
 
@@ -114,17 +112,12 @@
   }
 
   #noBtn {
-    background-color: #f0f0f0;
-    color: #333;
-    /* Absolute position is key for moving it freely */
+    background-color: #f5a2a2;
+    color: #eaa2a2;
     position: relative;
   }
 
   /* Image for the celebration state */
-  .gif-container {
-    display: none;
-  }
-
   .gif-container img {
     max-width: 100%;
     border-radius: 10px;
