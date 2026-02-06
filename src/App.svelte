@@ -15,7 +15,7 @@
         "Come on!",
         "Think again 😉",
         "Don't you want to? 🥺",
-        "NE NE NE NE NE",
+        "🤪 NE NE NE NE NE 🤪",
         "Beddop",
         "Pocha 🙂‍↔️",
         "Really?",
