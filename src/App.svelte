@@ -31,30 +31,19 @@
             hoverMessages[Math.floor(Math.random() * hoverMessages.length)];
         currentMessage = randomMsg;
 
-        // 2. Move Button within viewport (especially important for mobile)
-        if (container) {
-            const rect = container.getBoundingClientRect();
-            const viewportWidth = window.innerWidth;
-            const viewportHeight = window.innerHeight;
+        // 2. Move Button randomly across the entire viewport
+        const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight;
 
-            const btnWidth = 100; // Approximate button width
-            const btnHeight = 50; // Approximate button height
+        const btnWidth = 100; // Approximate button width
+        const btnHeight = 50; // Approximate button height
 
-            // Ensure button stays within viewport bounds
-            const maxX = viewportWidth - btnWidth - 20; // 20px margin
-            const maxY = viewportHeight - btnHeight - 20; // 20px margin
+        // Calculate random position within viewport bounds with margins
+        const randomX = Math.random() * (viewportWidth - btnWidth - 40) + 20;
+        const randomY = Math.random() * (viewportHeight - btnHeight - 40) + 20;
 
-            // Get container position relative to viewport
-            const containerLeft = rect.left;
-            const containerTop = rect.top;
-
-            // Calculate random position within viewport, preferring container area
-            const randomX = Math.max(20, Math.min(maxX, containerLeft + Math.random() * Math.min(rect.width - btnWidth, maxX - containerLeft)));
-            const randomY = Math.max(20, Math.min(maxY, containerTop + Math.random() * Math.min(rect.height - btnHeight, maxY - containerTop)));
-
-            noBtnPosition = { left: `${randomX}px`, top: `${randomY}px` };
-            isNoBtnMoved = true;
-        }
+        noBtnPosition = { left: `${randomX}px`, top: `${randomY}px` };
+        isNoBtnMoved = true;
     }
 </script>
 

@@ -1,43 +1,55 @@
-# Svelte + Vite
+# Valentine Card
 
-This template should help get you started developing with Svelte in Vite.
+A playful web application that asks the user to be your Valentine. The app features a "Yes" button that leads to a celebration and a "No" button that moves around the screen when interacted with, making it difficult to click.
 
-## Recommended IDE Setup
+### Url - [Click here for live view](https://valentine-card.junadhon81.workers.dev/)
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+## Tech Stack
 
-## Need an official Svelte framework?
+- **Frontend Framework**: Svelte 5
+- **Build Tool**: Vite
+- **Deployment**: Cloudflare Workers
+- **Language**: JavaScript
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+## Getting Started
 
-## Technical considerations
+### Prerequisites
 
-**Why use this over SvelteKit?**
+- Node.js (version 16 or higher)
+- npm
 
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
+### Installation
 
-This template contains as little as possible to get started with Vite + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
+1. Clone the repository:
+   ```
+   git clone https://github.com/junaid-h0ssain/valentine-card.git
+   cd valentine-card
+   ```
 
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
+2. Install dependencies:
+   ```
+   npm install
+   ```
 
-**Why include `.vscode/extensions.json`?**
+3. Start the development server:
+   ```
+   npm run dev
+   ```
 
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
+4. Open your browser and navigate to `http://localhost:5173`
 
-**Why enable `checkJs` in the JS template?**
+### Building for Production
 
-It is likely that most cases of changing variable types in runtime are likely to be accidental, rather than deliberate. This provides advanced typechecking out of the box. Should you like to take advantage of the dynamically-typed nature of JavaScript, it is trivial to change the configuration.
-
-**Why is HMR not preserving my local component state?**
-
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/sveltejs/svelte-hmr/tree/master/packages/svelte-hmr#preservation-of-local-state).
-
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
-
-```js
-// store.js
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
 ```
+npm run build
+```
+
+### Deployment
+
+The app is configured for deployment to Cloudflare Workers. Use the following command to deploy:
+
+```
+npx wrangler deploy
+```
+
+Make sure you have the Cloudflare CLI installed and configured.
